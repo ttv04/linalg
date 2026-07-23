@@ -1,3 +1,4 @@
+#pragma once
 #include <initializer_list>
 #include <vector>
 #include <cstddef>
@@ -5,6 +6,9 @@
 namespace linalg {
     class Matrix;
     class Vector;
+    class SquareMatrix;
+
+    SquareMatrix Identity(size_t);
 
     class Vector {
     private:
@@ -16,8 +20,7 @@ namespace linalg {
         Vector(size_t, std::initializer_list<double>);
         size_t size() const;
         double get(size_t) const;
-        void set(size_t, double);
-
+        void set(size_t, double);  
     };
 
     class Matrix {
@@ -33,13 +36,21 @@ namespace linalg {
         void set(size_t, size_t, double);
     };
 
-    Vector operator*(const Matrix& A, const Vector& b);
-    Matrix operator*(const Matrix& A, const Matrix& B);
-    Vector operator*(const double& scalar, const Vector& v);
-    Vector operator*(const Vector& v, const double& scalar);
-    Matrix operator*(const double& scalar, const Matrix& mat);
-    Matrix operator*(const Matrix& mat, const double& scalar);
-    Vector operator+(const Vector& a, const Vector& b);
-    Matrix operator+(const Matrix& A, const Matrix& B);
+    class SquareMatrix: public Matrix {
+    private:
+
+    public:
+        using Matrix::Matrix;
+        SquareMatrix(size_t);
+        SquareMatrix(size_t, std::initializer_list<std::initializer_list<double>>);
+        size_t size() const;
+        
+
+        // Deleted
+        size_t r_size() = delete;
+        size_t c_size() = delete;
+        SquareMatrix(size_t, size_t) = delete;
+        SquareMatrix(size_t, size_t, std::initializer_list<std::initializer_list<double>>) = delete;
+    };
 
 }

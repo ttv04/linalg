@@ -60,87 +60,19 @@ namespace linalg
         data[i][j] = val;
     }
 
-    // Strictly Matrix times Vector, not the other way around
-    Vector operator*(const Matrix& A, const Vector& b) {
-        if (A.c_size() != b.size()) return Vector(0);
-        Vector c(A.r_size());
-        for (size_t i = 0; i < A.r_size(); i++) {
-            double sum = 0;
-            for (size_t j = 0; j < A.c_size(); j++) {
-                sum += A.get(i, j) * b.get(j);
-            }
-            c.set(i, sum);
-        }
-        return c;
+    SquareMatrix::SquareMatrix(size_t size)
+        : Matrix(size, size) {}
+
+    SquareMatrix::SquareMatrix(size_t size, std::initializer_list<std::initializer_list<double>> list)
+        : Matrix(size, size, list) {}
+
+    size_t SquareMatrix::size() const {
+        return Matrix::c_size();
     }
 
-    Matrix operator*(const Matrix& A, const Matrix& B) {
-        if (A.c_size() != B.r_size()) return Matrix(0, 0);
-        Matrix C(A.c_size(), B.r_size());
-        for (size_t i = 0; i < C.r_size(); i++) {
-            for (size_t j = 0; j < C.c_size(); j++) {
-                double sum = 0;
-                for (size_t k = 0; k < A.r_size(); k++) {
-                    sum += A.get(i, j) * B.get(j, k);
-                }
-                C.set(i, j, sum);
-            }
-        }
-        return C;
+    SquareMatrix Identity(size_t size) {
+        SquareMatrix I(size);
+        for (size_t i = 0; i < size; i++) I.set(i, i, 1);
+        return I;
     }
-
-    Vector operator*(const double& scalar, const Vector& v) {
-        Vector new_v(v.size());
-        for (size_t i = 0; i < v.size(); i++) {
-            new_v.set(i, scalar * v.get(i));
-        }
-        return new_v;
-    }
-
-    Vector operator*(const Vector& v, const double& scalar) {
-        Vector new_v(v.size());
-        for (size_t i = 0; i < v.size(); i++) {
-            new_v.set(i, scalar * v.get(i));
-        }
-        return new_v;
-    }
-
-    Matrix operator*(const double& scalar, const Matrix& mat) {
-        Matrix new_mat(mat.r_size(), mat.c_size());
-        for (size_t i = 0; i < mat.r_size(); i++) {
-            for (size_t j = 0; j < mat.c_size(); j++) {
-                new_mat.set(i, j, scalar * mat.get(i, j));
-            }
-        }
-        return new_mat;
-    }
-
-    Matrix operator*(const Matrix& mat, const double& scalar) {
-        Matrix new_mat(mat.r_size(), mat.c_size());
-        for (size_t i = 0; i < mat.r_size(); i++) {
-            for (size_t j = 0; j < mat.c_size(); j++) {
-                new_mat.set(i, j, scalar * mat.get(i, j));
-            }
-        }
-        return new_mat;
-    }
-
-    Vector operator+(const Vector& a, const Vector& b) {
-        Vector c(a.size());
-        for (size_t i = 0; i < c.size(); i++) {
-            c.set(i, a.get(i) + b.get(i));
-        }
-        return c;
-    }
-
-    Matrix operator+(const Matrix& A, const Matrix& B) {
-        Matrix C(A.r_size(), A.c_size());
-        for (size_t i = 0; i < C.r_size(); i++) {
-            for (size_t j = 0; j < C.c_size(); j++) {
-                C.set(i, j, A.get(i, j) + B.get(i, j));
-            }
-        }
-        return C;
-    }
-
 }
