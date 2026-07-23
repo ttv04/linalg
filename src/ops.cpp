@@ -4,7 +4,6 @@
 namespace linalg {
 
     Vector operator*(const Matrix& A, const Vector& b) {
-        if (A.c_size() != b.size()) return Vector(0);
         Vector c(A.r_size());
         for (size_t i = 0; i < A.r_size(); i++) {
             double sum = 0;
@@ -17,26 +16,25 @@ namespace linalg {
     }
 
     Vector operator*(const Vector& b, const Matrix& A) {
-        if (A.c_size() != b.size()) return Vector(0);
-        Vector c(A.r_size());
-        for (size_t i = 0; i < A.r_size(); i++) {
+        // Row-vector × matrix: result length = A cols
+        Vector c(A.c_size());
+        for (size_t j = 0; j < A.c_size(); j++) {
             double sum = 0;
-            for (size_t j = 0; j < A.c_size(); j++) {
-                sum += A.get(i, j) * b.get(j);
+            for (size_t i = 0; i < A.r_size(); i++) {
+                sum += b.get(i) * A.get(i, j);
             }
-            c.set(i, sum);
+            c.set(j, sum);
         }
         return c;
     }
 
     Matrix operator*(const Matrix& A, const Matrix& B) {
-        if (A.c_size() != B.r_size()) return Matrix(0, 0);
-        Matrix C(A.c_size(), B.r_size());
+        Matrix C(A.r_size(), B.c_size());
         for (size_t i = 0; i < C.r_size(); i++) {
             for (size_t j = 0; j < C.c_size(); j++) {
                 double sum = 0;
-                for (size_t k = 0; k < A.r_size(); k++) {
-                    sum += A.get(i, j) * B.get(j, k);
+                for (size_t k = 0; k < A.c_size(); k++) {
+                    sum += A.get(i, k) * B.get(k, j);
                 }
                 C.set(i, j, sum);
             }
