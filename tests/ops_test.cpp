@@ -157,3 +157,55 @@ TEST(ops, identity_multiply) {
         }
     }
 }
+
+TEST(ops, vector_negate) {
+    linalg::Vector v(3, {1, -2, 3});
+    linalg::Vector neg = -v;
+
+    EXPECT_EQ(neg.size(), 3);
+    EXPECT_DOUBLE_EQ(neg.get(0), -1.0);
+    EXPECT_DOUBLE_EQ(neg.get(1), 2.0);
+    EXPECT_DOUBLE_EQ(neg.get(2), -3.0);
+}
+
+TEST(ops, matrix_negate) {
+    linalg::Matrix A(2, 2, {
+        {1, -2},
+        {3, -4}
+    });
+    linalg::Matrix neg = -A;
+
+    EXPECT_EQ(neg.r_size(), 2);
+    EXPECT_EQ(neg.c_size(), 2);
+    EXPECT_DOUBLE_EQ(neg.get(0, 0), -1.0);
+    EXPECT_DOUBLE_EQ(neg.get(0, 1), 2.0);
+    EXPECT_DOUBLE_EQ(neg.get(1, 0), -3.0);
+    EXPECT_DOUBLE_EQ(neg.get(1, 1), 4.0);
+}
+
+TEST(ops, vector_eq) {
+    linalg::Vector a(3, {1, 2, 3});
+    linalg::Vector b(3, {1, 2, 3});
+    linalg::Vector c(3, {1, 2, 4});
+
+    EXPECT_TRUE(a == b);
+    EXPECT_FALSE(a == c);
+}
+
+TEST(ops, matrix_eq) {
+    linalg::Matrix A(2, 2, {
+        {1, 2},
+        {3, 4}
+    });
+    linalg::Matrix B(2, 2, {
+        {1, 2},
+        {3, 4}
+    });
+    linalg::Matrix C(2, 2, {
+        {1, 2},
+        {3, 5}
+    });
+
+    EXPECT_TRUE(A == B);
+    EXPECT_FALSE(A == C);
+}

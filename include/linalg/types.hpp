@@ -33,7 +33,9 @@ namespace linalg {
         size_t r_size() const;
         size_t c_size() const;
         double get(size_t, size_t) const;
+        Vector get_row(size_t) const;
         void set(size_t, size_t, double);
+        void set_row(size_t, const Vector&);
     };
 
     class SquareMatrix: public Matrix {

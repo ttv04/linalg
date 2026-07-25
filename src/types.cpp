@@ -56,8 +56,20 @@ namespace linalg
         return data[i][j];
     }
 
+    Vector Matrix::get_row(size_t row) const {
+        Vector v(n);
+        for (size_t j = 0; j < n; j++) v.set(j, data[row][j]);
+        return v;
+    }
+
     void Matrix::set(size_t i, size_t j, double val) {
         data[i][j] = val;
+    }
+
+    void Matrix::set_row(size_t i, const Vector& row) {
+        for (size_t j = 0; j < n; j++) {
+            data[i][j] = row.get(j);
+        }
     }
 
     SquareMatrix::SquareMatrix(size_t size)

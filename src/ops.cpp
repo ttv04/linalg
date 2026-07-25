@@ -58,6 +58,14 @@ namespace linalg {
         return new_v;
     }
 
+    Vector operator-(const Vector& v) {
+        Vector c(v.size());
+        for (size_t i = 0; i < c.size(); i++) {
+            c.set(i, -v.get(i));
+        }
+        return c;
+    }
+
     Matrix operator*(const double& scalar, const Matrix& mat) {
         Matrix new_mat(mat.r_size(), mat.c_size());
         for (size_t i = 0; i < mat.r_size(); i++) {
@@ -94,6 +102,32 @@ namespace linalg {
             }
         }
         return C;
+    }
+
+    Matrix operator-(const Matrix& A) {
+        Matrix C(A.r_size(), A.c_size());
+        for (size_t i = 0; i < C.r_size(); i++) {
+            for (size_t j = 0; j < C.c_size(); j++) {
+                C.set(i, j, -A.get(i, j));
+            }
+        }
+        return C;
+    }
+
+    bool operator==(const Vector& a, const Vector& b) {
+        for (size_t i = 0; i < a.size(); i++) {
+            if (a.get(i) != b.get(i)) return false;
+        }
+        return true;
+    }
+
+    bool operator==(const Matrix& A, const Matrix& B) {
+        for (size_t i = 0; i < A.r_size(); i++) {
+            for (size_t j = 0; j < A.c_size(); j++) {
+                if (A.get(i, j) != B.get(i, j)) return false;
+            }
+        }
+        return true;
     }
 
     double dot(const Vector& a, const Vector& b) {

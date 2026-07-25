@@ -82,3 +82,57 @@ TEST(types, identitymatrix) {
         }
     } 
 }
+
+TEST(types, get_row) {
+    linalg::Matrix A(3, 4, {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    });
+
+    linalg::Vector row0 = A.get_row(0);
+    linalg::Vector row1 = A.get_row(1);
+    linalg::Vector row2 = A.get_row(2);
+
+    EXPECT_EQ(row0.size(), 4);
+    EXPECT_DOUBLE_EQ(row0.get(0), 1.0);
+    EXPECT_DOUBLE_EQ(row0.get(1), 2.0);
+    EXPECT_DOUBLE_EQ(row0.get(2), 3.0);
+    EXPECT_DOUBLE_EQ(row0.get(3), 4.0);
+
+    EXPECT_EQ(row1.size(), 4);
+    EXPECT_DOUBLE_EQ(row1.get(0), 5.0);
+    EXPECT_DOUBLE_EQ(row1.get(1), 6.0);
+    EXPECT_DOUBLE_EQ(row1.get(2), 7.0);
+    EXPECT_DOUBLE_EQ(row1.get(3), 8.0);
+
+    EXPECT_EQ(row2.size(), 4);
+    EXPECT_DOUBLE_EQ(row2.get(0), 9.0);
+    EXPECT_DOUBLE_EQ(row2.get(1), 10.0);
+    EXPECT_DOUBLE_EQ(row2.get(2), 11.0);
+    EXPECT_DOUBLE_EQ(row2.get(3), 12.0);
+}
+
+TEST(types, set_row) {
+    linalg::Matrix A(2, 3, {
+        {0, 0, 0},
+        {0, 0, 0}
+    });
+    linalg::Vector row(3, {1, 2, 3});
+
+    A.set_row(1, row);
+
+    EXPECT_DOUBLE_EQ(A.get(0, 0), 0.0);
+    EXPECT_DOUBLE_EQ(A.get(0, 1), 0.0);
+    EXPECT_DOUBLE_EQ(A.get(0, 2), 0.0);
+    EXPECT_DOUBLE_EQ(A.get(1, 0), 1.0);
+    EXPECT_DOUBLE_EQ(A.get(1, 1), 2.0);
+    EXPECT_DOUBLE_EQ(A.get(1, 2), 3.0);
+
+    // round-trip: set then get
+    linalg::Vector got = A.get_row(1);
+    EXPECT_EQ(got.size(), 3);
+    EXPECT_DOUBLE_EQ(got.get(0), 1.0);
+    EXPECT_DOUBLE_EQ(got.get(1), 2.0);
+    EXPECT_DOUBLE_EQ(got.get(2), 3.0);
+}

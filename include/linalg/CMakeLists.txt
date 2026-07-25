@@ -9,4 +9,5 @@ target_sources(include
         FILES
             types.hpp
             ops.hpp
+            factors.hpp
 )

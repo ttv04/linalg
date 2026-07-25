@@ -11,6 +11,11 @@ namespace linalg {
     Matrix operator*(const Matrix& mat, const double& scalar);
     Vector operator+(const Vector& a, const Vector& b);
     Matrix operator+(const Matrix& A, const Matrix& B);
+    Vector operator-(const Vector& a);
+    Matrix operator-(const Matrix& A);
+
+    bool operator==(const Vector& a, const Vector& b);
+    bool operator==(const Matrix& A, const Matrix& B);
 
     double dot(const Vector& a, const Vector& b);
     Matrix transpose(const Matrix& A);

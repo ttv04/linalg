@@ -6,6 +6,7 @@ target_sources(src
     PRIVATE
         types.cpp
         ops.cpp
+        factors.cpp
 )
 
 target_link_libraries(src

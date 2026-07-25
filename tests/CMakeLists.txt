@@ -8,6 +8,7 @@ target_sources(tests
     PRIVATE
         ops_test.cpp
         types_test.cpp
+        factors_test.cpp
 
 )
 
