@@ -9,7 +9,7 @@ namespace linalg {
         void factor();
     public:
         LU(const SquareMatrix&);
-        Matrix L();
-        Matrix U();
+        const SquareMatrix& L() const;
+        const SquareMatrix& U() const;
     };
 }

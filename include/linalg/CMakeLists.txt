@@ -10,4 +10,5 @@ target_sources(include
             types.hpp
             ops.hpp
             factors.hpp
+            solvers.hpp
 )

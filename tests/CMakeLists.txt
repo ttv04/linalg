@@ -9,7 +9,7 @@ target_sources(tests
         ops_test.cpp
         types_test.cpp
         factors_test.cpp
-
+        solvers_test.cpp
 )
 
 target_link_libraries(tests

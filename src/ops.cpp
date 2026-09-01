@@ -1,5 +1,4 @@
 #include "linalg/ops.hpp"
-#include <iostream>
 
 namespace linalg {
 

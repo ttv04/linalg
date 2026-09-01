@@ -6,7 +6,10 @@
 
 namespace linalg {
     LU::LU(const SquareMatrix& A) 
-        : l(SquareMatrix(0)), u(A) {}
+        : l(SquareMatrix(0)), u(A) {
+        
+        factor();
+    }
 
     void LU::factor() {
         l = linalg::Identity(u.size());
@@ -23,17 +26,11 @@ namespace linalg {
         }
     }
 
-    Matrix LU::L() {
-        if (l.size() == 0) {
-            factor();
-        }
+    const SquareMatrix& LU::L() const {
         return l;
     }
 
-    Matrix LU::U() {
-        if (l.size() == 0) {
-            factor();
-        }
+    const SquareMatrix& LU::U() const {
         return u;
     }
 

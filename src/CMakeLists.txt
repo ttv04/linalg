@@ -7,6 +7,7 @@ target_sources(src
         types.cpp
         ops.cpp
         factors.cpp
+        solvers.cpp
 )
 
 target_link_libraries(src
